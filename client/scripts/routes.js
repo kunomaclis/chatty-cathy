@@ -12,9 +12,10 @@ import tabsTemplateUrl from '../templates/tabs.html';
 class RoutesConfig extends Config {
   constructor() {
     super(...arguments);
- 
+
     this.isAuthorized = ['$auth', this.isAuthorized.bind(this)];
   }
+
   configure() {
     this.$stateProvider
       .state('tab', {
@@ -23,6 +24,7 @@ class RoutesConfig extends Config {
         templateUrl: tabsTemplateUrl,
         resolve: {
           user: this.isAuthorized
+        }
       })
       .state('tab.chats', {
         url: '/chats',
@@ -72,6 +74,7 @@ class RoutesConfig extends Config {
 
     this.$urlRouterProvider.otherwise('tab/chats');
   }
+
   isAuthorized($auth) {
     return $auth.awaitUser();
   }
@@ -80,15 +83,15 @@ class RoutesConfig extends Config {
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
 class RoutesRunner extends Runner {
- run() {
-   this.$rootScope.$on('$stateChangeError', (...args) => {
-     const err = _.last(args);
+  run() {
+    this.$rootScope.$on('$stateChangeError', (...args) => {
+      const err = _.last(args);
 
-     if (err === 'AUTH_REQUIRED') {
-       this.$state.go('login');
-     }
-   });
- }
+      if (err === 'AUTH_REQUIRED') {
+        this.$state.go('login');
+      }
+    });
+  }
 }
 
 RoutesRunner.$inject = ['$rootScope', '$state'];

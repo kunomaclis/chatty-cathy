@@ -1,11 +1,11 @@
 import { _ } from 'meteor/underscore';
 import { Accounts } from 'meteor/accounts-base';
 import { Controller } from 'angular-ecmascript/module-helpers';
- 
+
 export default class LoginCtrl extends Controller {
   login() {
     if (_.isEmpty(this.phone)) return;
- 
+
     const confirmPopup = this.$ionicPopup.confirm({
       title: 'Number confirmation',
       template: '<div>' + this.phone + '</div><div>Is your phone number above correct?</div>',
@@ -15,14 +15,14 @@ export default class LoginCtrl extends Controller {
       cancelText: 'edit',
       cancelType: 'button-dark button-clear'
     });
- 
+
     confirmPopup.then((res) => {
       if (!res) return;
- 
+
       this.$ionicLoading.show({
         template: 'Sending verification code...'
       });
- 
+
       Accounts.requestPhoneVerification(this.phone, (err) => {
         this.$ionicLoading.hide();
         if (err) return this.handleError(err);
@@ -30,10 +30,10 @@ export default class LoginCtrl extends Controller {
       });
     });
   }
- 
+
   handleError(err) {
     this.$log.error('Login error ', err);
- 
+
     this.$ionicPopup.alert({
       title: err.reason || 'Login failed',
       template: 'Please try again',
@@ -41,6 +41,6 @@ export default class LoginCtrl extends Controller {
     });
   }
 }
- 
+
 LoginCtrl.$name = 'LoginCtrl';
 LoginCtrl.$inject = ['$state', '$ionicLoading', '$ionicPopup', '$log'];
