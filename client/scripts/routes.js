@@ -5,21 +5,21 @@ import chatTemplateUrl from '../templates/chat.html';
 import tabsTemplateUrl from '../templates/tabs.html';
 
 export default class RoutesConfig extends Config {
- configure() {
-   this.$stateProvider
-     .state('tab', {
-       url: '/tab',
-       abstract: true,
-       templateUrl: tabsTemplateUrl
-     })
-     .state('tab.chats', {
-       url: '/chats',
-       views: {
-         'tab-chats': {
-           templateUrl: chatsTemplateUrl,
-           controller: 'ChatsCtrl as chats'
-         }
-       }
+  configure() {
+    this.$stateProvider
+      .state('tab', {
+        url: '/tab',
+        abstract: true,
+        templateUrl: tabsTemplateUrl
+      })
+      .state('tab.chats', {
+        url: '/chats',
+        views: {
+          'tab-chats': {
+            templateUrl: chatsTemplateUrl,
+            controller: 'ChatsCtrl as chats'
+          }
+        }
       })
       .state('tab.chat', {
         url: '/chats/:chatId',
@@ -29,10 +29,10 @@ export default class RoutesConfig extends Config {
             controller: 'ChatCtrl as chat'
           }
         }
-     });
+      });
 
-   this.$urlRouterProvider.otherwise('tab/chats');
- }
+    this.$urlRouterProvider.otherwise('tab/chats');
+  }
 }
 
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
