@@ -19,6 +19,7 @@ import ProfileCtrl from '../controllers/profile.controller';
 import SettingsCtrl from '../controllers/settings.controller';
 import InputDirective from '../directives/input.directive';
 import CalendarFilter from '../filters/calendar.filter';
+import NewChatService from '../services/new-chat.service';
 import Routes from '../routes';
 
 const App = 'chatty-cathy';
@@ -39,6 +40,7 @@ new Loader(App)
   .load(ProfileCtrl)
   .load(SettingsCtrl)
   .load(InputDirective)
+  .load(NewChatService)
   .load(CalendarFilter)
   .load(Routes);
 
